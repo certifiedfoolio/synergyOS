@@ -1,5 +1,0 @@
-type: dnf5-extra
-source: local
-groupinstall:
-  - budgie-desktop
-  - budgie-desktop-apps

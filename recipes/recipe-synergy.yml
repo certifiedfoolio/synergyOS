@@ -5,8 +5,8 @@ base-image: ghcr.io/ublue-os/base-main
 image-version: 41
 
 modules:
+  - from-file: common/sys-scripts.yml
   - from-file: common/sys-packages.yml
-  - from-file: common/sys-pkggroups.yml
   - from-file: common/sys-files.yml
   - from-file: common/flatpaks.yml
   - type: signing
