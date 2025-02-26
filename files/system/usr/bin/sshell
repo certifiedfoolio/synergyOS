@@ -5,7 +5,32 @@ if [[ "$(/etc/containercfg.d/setup.d/setup.conf)" == "0" ]]; then
 fi
 
 if [[ -n "$TTY" ]] || [[ -n "$DISPLAY" ]]; then
-    /usr/bin/distrobox-enter "$(cat /etc/containercfg.d/$USER/default.conf)"
+    override_config="$HOME/.config/containercfg.d/override.conf"
+    default_config="/etc/containercfg.d/$USER/default.conf"
+
+    if [[ -f "$override_config" ]]; then
+        if command -v distrobox-enter &> /dev/null; then
+            if read -r container < "$override_config"; then
+                /usr/bin/distrobox-enter "$container"
+            else
+                echo "Error: Could not read $override_config" >&2
+            fi
+        else
+            echo "Error: distrobox-enter command not found." >&2
+        fi
+    elif [[ -f "$default_config" ]]; then
+        if command -v distrobox-enter &> /dev/null; then
+            if read -r container < "$default_config"; then
+                /usr/bin/distrobox-enter "$container"
+            else
+                echo "Error: Could not read $default_config" >&2
+            fi
+        else
+            echo "Error: distrobox-enter command not found." >&2
+        fi
+    else
+        echo "Error: Neither $override_config nor $default_config exists." >&2
+    fi
 else
     /usr/bin/bash
 fi
