@@ -1,4 +1,3 @@
-type: groupinstall
-groups:
-  - budgie-desktop
-  - budgie-desktop-apps
+type: script
+scripts:
+  - install-budgie.sh
