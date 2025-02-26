@@ -27,7 +27,6 @@ jobs:
       matrix:
         recipe:
           - recipe-synergy.yml
-          - recipe-synergy-base.yml
     steps:
       # the build is fully handled by the reusable github action
       - name: Build Custom Image

@@ -1,0 +1,13 @@
+#!/bin/bash
+
+if [[ "$(/etc/containercfg.d/setup.d/setup.conf)" == "0" ]]; then
+    synergy setup
+fi
+
+if [[ -n "$TTY" ]] || [[ -n "$DISPLAY" ]]; then
+    /usr/bin/distrobox-enter "$(cat /etc/containercfg.d/$USER/default.conf)"
+else
+    /usr/bin/bash
+fi
+
+exit 0
