@@ -129,35 +129,41 @@ if [[ ${#INSTALL_PKGS[@]} -gt 0 && ${#REMOVE_PKGS[@]} -gt 0 ]]; then
     # Doing both actions in one command allows for replacing required packages with alternatives
     # When --install= flag is used, URLs & local packages are not supported
     if ${CLASSIC_INSTALL} && ! ${HTTPS_INSTALL} && ! ${LOCAL_INSTALL}; then
-      dnf5 remove "${REMOVE_PKGS[@]}" $(printf -- "--install=%s " "${CLASSIC_PKGS[@]}")
+      dnf5 -y remove "${REMOVE_PKGS[@]}" $(printf -- "--install=%s " "${CLASSIC_PKGS[@]}")
     elif ${CLASSIC_INSTALL} && ${HTTPS_INSTALL} && ! ${LOCAL_INSTALL}; then
-      dnf5 remove "${REMOVE_PKGS[@]}" $(printf -- "--install=%s " "${CLASSIC_PKGS[@]}")
-      dnf5 install "${HTTPS_PKGS[@]}"
+      dnf5 -y remove "${REMOVE_PKGS[@]}" $(printf -- "--install=%s " "${CLASSIC_PKGS[@]}")
+      dnf5 -y install "${HTTPS_PKGS[@]}"
     elif ${CLASSIC_INSTALL} && ! ${HTTPS_INSTALL} && ${LOCAL_INSTALL}; then
-      dnf5 remove "${REMOVE_PKGS[@]}" $(printf -- "--install=%s " "${CLASSIC_PKGS[@]}")    
-      dnf5 install "${LOCAL_PKGS[@]}"
+      dnf5 -y remove "${REMOVE_PKGS[@]}" $(printf -- "--install=%s " "${CLASSIC_PKGS[@]}")    
+      dnf5 -y install "${LOCAL_PKGS[@]}"
     elif ${CLASSIC_INSTALL} && ${HTTPS_INSTALL} && ${LOCAL_INSTALL}; then
-      dnf5 remove "${REMOVE_PKGS[@]}" $(printf -- "--install=%s " "${CLASSIC_PKGS[@]}")
-      dnf5 install "${HTTPS_PKGS[@]}" "${LOCAL_PKGS[@]}"
+      dnf5 -y remove "${REMOVE_PKGS[@]}" $(printf -- "--install=%s " "${CLASSIC_PKGS[@]}")
+      dnf5 -y install "${HTTPS_PKGS[@]}" "${LOCAL_PKGS[@]}"
     elif ! ${CLASSIC_INSTALL} && ! ${HTTPS_INSTALL} && ${LOCAL_INSTALL}; then
-      dnf5 remove "${REMOVE_PKGS[@]}"
-      dnf5 install "${LOCAL_PKGS[@]}"
+      dnf5 -y remove "${REMOVE_PKGS[@]}"
+      dnf5 -y install "${LOCAL_PKGS[@]}"
     elif ! ${CLASSIC_INSTALL} && ${HTTPS_INSTALL} && ! ${LOCAL_INSTALL}; then
-      dnf5 remove "${REMOVE_PKGS[@]}"
-      dnf5 install "${HTTPS_PKGS[@]}"
+      dnf5 -y remove "${REMOVE_PKGS[@]}"
+      dnf5 -y install "${HTTPS_PKGS[@]}"
     elif ! ${CLASSIC_INSTALL} && ${HTTPS_INSTALL} && ${LOCAL_INSTALL}; then
-      dnf5 remove "${REMOVE_PKGS[@]}"
-      dnf5 "${HTTPS_PKGS[@]}" "${LOCAL_PKGS[@]}"
+      dnf5 -y remove "${REMOVE_PKGS[@]}"
+      dnf5 -y install "${HTTPS_PKGS[@]}" "${LOCAL_PKGS[@]}"
     fi  
 elif [[ ${#INSTALL_PKGS[@]} -gt 0 ]]; then
     echo "Installing RPMs"
     echo_rpm_install
-    dnf5 install "${INSTALL_PKGS[@]}"
+    dnf5 -y install "${INSTALL_PKGS[@]}"
 elif [[ ${#REMOVE_PKGS[@]} -gt 0 ]]; then
     echo "Removing RPMs"
     echo "Removing: ${REMOVE_PKGS[*]}"
-    dnf5 remove "${REMOVE_PKGS[@]}"
+    dnf5 -y remove "${REMOVE_PKGS[@]}"
 fi
+
+get_json_array GROUPS 'try .["groupinstall"][]' "$1"
+
+for THING in "${GROUPS[@]}"; do
+    dnf5 -y group install "$THING"
+done
 
 get_json_array REPLACE 'try .["replace"][]' "$1"
 

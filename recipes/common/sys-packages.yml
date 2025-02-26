@@ -8,3 +8,6 @@ install:
   - tealdeer
   - apx
   - apx-conf
+groupinstall:
+  - budgie-desktop
+  - budgie-desktop-apps
