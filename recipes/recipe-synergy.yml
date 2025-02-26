@@ -1,7 +1,7 @@
 ---
 name: synergyOS
 description: Fedora Atomic hinging on a bash script.
-base-image: ghcr.io/ublue-os/kinoite
+base-image: ghcr.io/ublue-os/kinoite-main
 image-version: 41
 
 modules:
