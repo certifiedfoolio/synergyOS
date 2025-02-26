@@ -1,0 +1,10 @@
+type: rpm-ostree
+repos: 
+  - https://copr.fedorainfracloud.org/coprs/chronos/syspkgs/repo/fedora-%OS_VERSION%/chronos-syspkgs-fedora-%OS_VERSION%.repo
+install:
+  - tealdeer
+  - didyoumean
+  - atuin
+  - chronos
+  - apx
+  - apx-conf
