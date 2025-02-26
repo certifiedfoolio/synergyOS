@@ -10,3 +10,4 @@ install:
 remove:
   - toolbox
   - sudo
+  - sudo-python-plugin
