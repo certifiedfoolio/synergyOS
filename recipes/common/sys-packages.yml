@@ -1,5 +1,4 @@
 type: rpm-ostree
-source: local
 repos: 
   - https://copr.fedorainfracloud.org/coprs/chronos/syspkgs/repo/fedora-%OS_VERSION%/chronos-syspkgs-fedora-%OS_VERSION%.repo
 install:
@@ -8,6 +7,9 @@ install:
   - tealdeer
   - apx
   - apx-conf
+
+type: dnf5-extra
+source: local
 groupinstall:
   - budgie-desktop
   - budgie-desktop-apps
