@@ -4,6 +4,6 @@ repos:
 install:
   - didyoumean
   - atuin
-  - chronos
+  - tealdeer
   - apx
   - apx-conf
