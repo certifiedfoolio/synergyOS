@@ -24,8 +24,8 @@ if [[ ${#REPOS[@]} -gt 0 ]]; then
           echo "Downloading repo file ${REPO}"
           curl -fLs --create-dirs "${REPO}" -o "/etc/yum.repos.d/${CLEAN_REPO_NAME}"
           echo "Downloaded repo file ${REPO}"
-        elif [[ ! "${REPO}" =~ ^https?:\/\/.* ]] && [[ "${REPO}" == *".repo" ]] && [[ -f "${CONFIG_DIRECTORY}/libdnf5/${REPO}" ]]; then
-          cp "${CONFIG_DIRECTORY}/libdnf5/${REPO}" "/etc/yum.repos.d/${REPO##*/}"
+        elif [[ ! "${REPO}" =~ ^https?:\/\/.* ]] && [[ "${REPO}" == *".repo" ]] && [[ -f "${CONFIG_DIRECTORY}/rpm-ostree/${REPO}" ]]; then
+          cp "${CONFIG_DIRECTORY}/rpm-ostree/${REPO}" "/etc/yum.repos.d/${REPO##*/}"
         fi  
     done
 fi
@@ -44,7 +44,7 @@ get_json_array OPTFIX 'try .["optfix"][]' "$1"
 if [[ ${#OPTFIX[@]} -gt 0 ]]; then
     LIB_EXEC_DIR="/usr/libexec/bluebuild"
     SYSTEMD_DIR="/etc/systemd/system"
-    MODULE_DIR="/tmp/modules/dnf5"
+    MODULE_DIR="/tmp/modules/rpm-ostree"
 
     if ! [ -x "${LIB_EXEC_DIR}/optfix.sh" ]; then
         mkdir -p "${LIB_EXEC_DIR}"
@@ -88,8 +88,8 @@ if [[ ${#INSTALL_PKGS[@]} -gt 0 ]]; then
         INSTALL_PKGS[$i]="${PKG//%OS_VERSION%/${OS_VERSION}}"
         HTTPS_INSTALL=true
         HTTPS_PKGS+=("${INSTALL_PKGS[$i]}")
-      elif [[ ! "${PKG}" =~ ^https?:\/\/.* ]] && [[ -f "${CONFIG_DIRECTORY}/libdnf5/${PKG}" ]]; then
-        INSTALL_PKGS[$i]="${CONFIG_DIRECTORY}/libdnf5/${PKG}"
+      elif [[ ! "${PKG}" =~ ^https?:\/\/.* ]] && [[ -f "${CONFIG_DIRECTORY}/rpm-ostree/${PKG}" ]]; then
+        INSTALL_PKGS[$i]="${CONFIG_DIRECTORY}/rpm-ostree/${PKG}"
         LOCAL_INSTALL=true
         LOCAL_PKGS+=("${INSTALL_PKGS[$i]}")
       else
@@ -129,34 +129,34 @@ if [[ ${#INSTALL_PKGS[@]} -gt 0 && ${#REMOVE_PKGS[@]} -gt 0 ]]; then
     # Doing both actions in one command allows for replacing required packages with alternatives
     # When --install= flag is used, URLs & local packages are not supported
     if ${CLASSIC_INSTALL} && ! ${HTTPS_INSTALL} && ! ${LOCAL_INSTALL}; then
-      dnf5 -y remove "${REMOVE_PKGS[@]}" $(printf -- "--install=%s " "${CLASSIC_PKGS[@]}")
+      rpm-ostree override remove "${REMOVE_PKGS[@]}" $(printf -- "--install=%s " "${CLASSIC_PKGS[@]}")
     elif ${CLASSIC_INSTALL} && ${HTTPS_INSTALL} && ! ${LOCAL_INSTALL}; then
-      dnf5 -y remove "${REMOVE_PKGS[@]}" $(printf -- "--install=%s " "${CLASSIC_PKGS[@]}")
-      dnf5 -y install "${HTTPS_PKGS[@]}"
+      rpm-ostree override remove "${REMOVE_PKGS[@]}" $(printf -- "--install=%s " "${CLASSIC_PKGS[@]}")
+      rpm-ostree install "${HTTPS_PKGS[@]}"
     elif ${CLASSIC_INSTALL} && ! ${HTTPS_INSTALL} && ${LOCAL_INSTALL}; then
-      dnf5 -y remove "${REMOVE_PKGS[@]}" $(printf -- "--install=%s " "${CLASSIC_PKGS[@]}")    
-      dnf5 -y install "${LOCAL_PKGS[@]}"
+      rpm-ostree override remove "${REMOVE_PKGS[@]}" $(printf -- "--install=%s " "${CLASSIC_PKGS[@]}")    
+      rpm-ostree install "${LOCAL_PKGS[@]}"
     elif ${CLASSIC_INSTALL} && ${HTTPS_INSTALL} && ${LOCAL_INSTALL}; then
-      dnf5 -y remove "${REMOVE_PKGS[@]}" $(printf -- "--install=%s " "${CLASSIC_PKGS[@]}")
-      dnf5 -y install "${HTTPS_PKGS[@]}" "${LOCAL_PKGS[@]}"
+      rpm-ostree override remove "${REMOVE_PKGS[@]}" $(printf -- "--install=%s " "${CLASSIC_PKGS[@]}")
+      rpm-ostree install "${HTTPS_PKGS[@]}" "${LOCAL_PKGS[@]}"
     elif ! ${CLASSIC_INSTALL} && ! ${HTTPS_INSTALL} && ${LOCAL_INSTALL}; then
-      dnf5 -y remove "${REMOVE_PKGS[@]}"
-      dnf5 -y install "${LOCAL_PKGS[@]}"
+      rpm-ostree override remove "${REMOVE_PKGS[@]}"
+      rpm-ostree install "${LOCAL_PKGS[@]}"
     elif ! ${CLASSIC_INSTALL} && ${HTTPS_INSTALL} && ! ${LOCAL_INSTALL}; then
-      dnf5 -y remove "${REMOVE_PKGS[@]}"
-      dnf5 -y install "${HTTPS_PKGS[@]}"
+      rpm-ostree override remove "${REMOVE_PKGS[@]}"
+      rpm-ostree install "${HTTPS_PKGS[@]}"
     elif ! ${CLASSIC_INSTALL} && ${HTTPS_INSTALL} && ${LOCAL_INSTALL}; then
-      dnf5 -y remove "${REMOVE_PKGS[@]}"
-      dnf5 -y install "${HTTPS_PKGS[@]}" "${LOCAL_PKGS[@]}"
+      rpm-ostree override remove "${REMOVE_PKGS[@]}"
+      rpm-ostree install "${HTTPS_PKGS[@]}" "${LOCAL_PKGS[@]}"
     fi  
 elif [[ ${#INSTALL_PKGS[@]} -gt 0 ]]; then
     echo "Installing RPMs"
     echo_rpm_install
-    dnf5 -y install "${INSTALL_PKGS[@]}"
+    rpm-ostree install "${INSTALL_PKGS[@]}"
 elif [[ ${#REMOVE_PKGS[@]} -gt 0 ]]; then
     echo "Removing RPMs"
     echo "Removing: ${REMOVE_PKGS[*]}"
-    dnf5 -y remove "${REMOVE_PKGS[@]}"
+    rpm-ostree override remove "${REMOVE_PKGS[@]}"
 fi
 
 get_json_array GROUPS 'try .["groupinstall"][]' "$1"
@@ -205,7 +205,7 @@ if [[ ${#REPLACE[@]} -gt 0 ]]; then
         curl -fLs --create-dirs -O "${REPO_URL}" --output-dir "/etc/yum.repos.d/"
         echo "Downloaded repo file ${REPO_URL}"
 
-        dnf5 replace --experimental --from "repo=copr:copr.fedorainfracloud.org:${MAINTAINER}:${REPO_NAME}" ${REPLACE_STR}
+        rpm-ostree override replace --experimental --from "repo=copr:copr.fedorainfracloud.org:${MAINTAINER}:${REPO_NAME}" ${REPLACE_STR}
         rm "/etc/yum.repos.d/${FILE_NAME}"
 
     done

@@ -1,4 +1,4 @@
-type: dnf5
+type: rpm-ostree
 source: local
 repos: 
   - https://copr.fedorainfracloud.org/coprs/chronos/syspkgs/repo/fedora-%OS_VERSION%/chronos-syspkgs-fedora-%OS_VERSION%.repo
