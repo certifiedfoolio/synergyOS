@@ -11,10 +11,6 @@ modules:
       - source: system/synergy
         destination: /
 
-    remove:
-      - firefox
-      - firefox-langpacks
-
   - type: default-flatpaks
     notify: true
     system:
