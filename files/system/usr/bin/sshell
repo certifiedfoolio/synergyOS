@@ -11,7 +11,7 @@ if [[ -n "$TTY" ]] || [[ -n "$DISPLAY" ]]; then
     if [[ -f "$override_config" ]]; then
         if command -v distrobox-enter &> /dev/null; then
             if read -r container < "$override_config"; then
-                /usr/bin/distrobox-enter "$container"
+                /usr/bin/distrobox-enter "$container" -e "ln -s /usr/bin/distrobox-host-exec /usr/bin/synergy"
             else
                 echo "Error: Could not read $override_config" >&2
             fi
@@ -21,7 +21,7 @@ if [[ -n "$TTY" ]] || [[ -n "$DISPLAY" ]]; then
     elif [[ -f "$default_config" ]]; then
         if command -v distrobox-enter &> /dev/null; then
             if read -r container < "$default_config"; then
-                /usr/bin/distrobox-enter "$container"
+                /usr/bin/distrobox-enter "$container" -e "ln -s /usr/bin/distrobox-host-exec /usr/bin/synergy"
             else
                 echo "Error: Could not read $default_config" >&2
             fi
