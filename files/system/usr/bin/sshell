@@ -1,10 +1,14 @@
 #!/bin/bash
 
-if [[ "$(/etc/containercfg.d/setup.d/setup.conf)" == "0" ]]; then
+CONTAINER_CONFIG_DIR="/etc/containercfg.d/$USER"
+
+if [[ ! -d "$CONTAINER_CONFIG_DIR" ]]; then
+  if [[ -n "$TTY" || -n "$DISPLAY" ]]; then
     synergy setup
+  fi
 fi
 
-if [[ -n "$TTY" ]] || [[ -n "$DISPLAY" ]]; then
+if [[ -n "$TTY" || -n "$DISPLAY" ]]; then
     override_config="$HOME/.config/containercfg.d/override.conf"
     default_config="/etc/containercfg.d/$USER/default.conf"
 
@@ -13,7 +17,7 @@ if [[ -n "$TTY" ]] || [[ -n "$DISPLAY" ]]; then
             if read -r container < "$override_config"; then
                 /usr/bin/distrobox-enter "$container" -e "ln -s /usr/bin/distrobox-host-exec /usr/bin/synergy"
             else
-                echo "Error: Could not read $override_config" >&2
+                echo "Could not read $override_config, moving to default" >&2
             fi
         else
             echo "Error: distrobox-enter command not found." >&2

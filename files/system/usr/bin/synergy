@@ -23,6 +23,9 @@ setup() {
     echo "For you to access your shell, we need to set up the default container."
     echo "Don't worry! Hopefully, this wont take long. We'll tell you when we are done."
     apx subsystems new --name fedora-41 --stack fedora
+    echo "Hey! We need your password."
+    pkexec mkdir /etc/containercfg.d/$PREUSER
+    pkexec echo "fedora-41" > /etc/containercfg.d/$PREUSER/default.conf
     echo "Done! Restart your shell to enjoy your container."
     clear
   else
