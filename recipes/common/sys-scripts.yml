@@ -2,3 +2,4 @@ type: script
 scripts:
   - install-budgie.sh
   - unprotectsudo.sh
+  - globalservices.sh
