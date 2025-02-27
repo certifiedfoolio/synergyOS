@@ -6,7 +6,7 @@ help() {
   echo "Usage: synergy <command> [options]"
   echo ""
   echo "Commands:"
-  echo "  setup             Setup synergy/synergy-shell"
+  echo "  setup             Setup synergy"
   echo "  new [flags]       Create a new container"
   echo "  rm [flags]        Remove an existing container"
   echo "  switch            Switch containers"
@@ -18,7 +18,7 @@ help() {
 }
 
 setup() {
-  if [ "$(cat /etc/containercfg.d/setup.d/setup.conf)" == "0" ]; then
+  if [[ ! -d "/etc/containercfg.d/$USER" ]]; then
     echo "Hello there! Welcome to synergyOS!"
     echo "For you to access your shell, we need to set up the default container."
     echo "Don't worry! Hopefully, this wont take long. We'll tell you when we are done."
