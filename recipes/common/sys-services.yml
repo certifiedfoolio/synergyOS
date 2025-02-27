@@ -1,3 +1,4 @@
 type: systemd
-enable:
-  - set-sshell.service
+system:
+  enabled:
+    - set-sshell.service
