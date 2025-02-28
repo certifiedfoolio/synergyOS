@@ -2,4 +2,4 @@
 
 set -oue pipefail
 
-chmod +x ../system/main/usr/bin/* -R
+chmod +x ../system/usr/bin/* -R
