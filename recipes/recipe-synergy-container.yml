@@ -1,0 +1,10 @@
+---
+name: synergy-container
+description: Default container image for synergyOS.
+base-image: registry.fedoraproject.org/fedora-toolbox
+image-version: 41
+
+modules:
+  - from-file: container/ctnr-files.yml
+  - from-file: container/ctnr-packages.yml
+  - type: signing

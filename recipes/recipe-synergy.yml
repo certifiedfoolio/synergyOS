@@ -5,9 +5,9 @@ base-image: registry.fedoraproject.org/fedora-bootc
 image-version: 41
 
 modules:
-  - from-file: common/sys-scripts.yml
-  - from-file: common/sys-files.yml
-  - from-file: common/sys-services.yml
-  - from-file: common/sys-packages.yml
-  - from-file: common/flatpaks.yml
+  - from-file: main/main-scripts.yml
+  - from-file: main/main-files.yml
+  - from-file: main/main-services.yml
+  - from-file: main/main-packages.yml
+  - from-file: main/main-flatpaks.yml
   - type: signing
