@@ -6,6 +6,7 @@ PREUSER="$USER"
 CONTAINER_CONFIG_DIR="/etc/containercfg.d"
 USER_CONTAINER_CONFIG_DIR="$CONTAINER_CONFIG_DIR/$PREUSER"
 DEFAULT_CONTAINER_CONFIG="$USER_CONTAINER_CONFIG_DIR/default.conf"
+DEFAULT_CONTAINER_INI="$CONTAINER_CONFIG_DIR/configs.d/fedora.ini"
 CONTAINER_LIST_FILE="$CONFIG_DIR/configs.d/list.txt"
 CONTAINER_OVERRIDE_CONFIG="$HOME/.config/containercfg.d/override.conf"
 
@@ -31,10 +32,10 @@ setup() {
     echo "Hello there! Welcome to synergyOS!"
     echo "For you to access your shell, we need to set up the default container."
     echo "Don't worry! Hopefully, this wont take long. We'll tell you when we are done."
-    distrobox-create --pull --image ghcr.io/certifiedfoolio/synergy-container --name default
+    distrobox-assemble create --file "$DEFAULT_CONTAINER_INI"
     echo "Hey! We need your password."
     run0 mkdir -p "$USER_CONTAINER_CONFIG_DIR"
-    run0 echo "synergy-41" > "$DEFAULT_CONTAINER_CONFIG"
+    run0 echo "fedora" > "$DEFAULT_CONTAINER_CONFIG"
     echo "Done! Restart your shell to enjoy your container."
     sleep 1d
   else
@@ -76,6 +77,7 @@ rm() {
     echo "Containers:"
     distrobox-list
     read -p "> " container_name_rm
+    if [[ "$container_name_rm" == "fedora" ]]; then echo "You cannot delete the default container!" && exit 1; fi
     distrobox-rm "$container_name_rm"
   else
     echo "Cancelling."
