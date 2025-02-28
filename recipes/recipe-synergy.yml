@@ -1,5 +1,5 @@
 ---
-name: synergyOS
+name: synergy-os
 description: Fedora Atomic hinging on a bash script.
 base-image: registry.fedoraproject.org/fedora-bootc
 image-version: 41
