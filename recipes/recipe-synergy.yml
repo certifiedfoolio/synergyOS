@@ -1,8 +1,8 @@
 ---
 name: synergyOS
 description: Fedora Atomic hinging on a bash script.
-base-image: quay.io/fedora-ostree-desktops/onyx
-image-version: 40
+base-image: registry.fedoraproject.org/fedora-onyx
+image-version: 41
 
 modules:
   - from-file: common/sys-scripts.yml
