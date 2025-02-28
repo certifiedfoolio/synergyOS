@@ -2,3 +2,4 @@ type: script
 scripts:
   - install-cinnamon.sh
   - unprotectsudo.sh
+  - add-exec-perms.sh
