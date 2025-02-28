@@ -16,7 +16,7 @@ concurrency:
   cancel-in-progress: true
 jobs:
   bluebuild:
-    name: Build Synergy
+    name: Build Synergy Variants
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -27,10 +27,9 @@ jobs:
       matrix:
         recipe:
           - recipe-synergy.yml
-          - recipe-synergy-container.yml
     steps:
       # the build is fully handled by the reusable github action
-      - name: Build Synergy Variants
+      - name: Build Synergy
         uses: blue-build/github-action@v1.8
         with:
           recipe: ${{ matrix.recipe }}

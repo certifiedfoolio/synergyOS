@@ -1,5 +1,0 @@
-echo "Hello! You are now in the container shell."
-echo "Commands run in here DO NOT apply to the host system."
-echo "This container also doesn't necessarily"
-echo "work the same as your host system."
-echo "Run `synergy help` for commands to navigate your container."
