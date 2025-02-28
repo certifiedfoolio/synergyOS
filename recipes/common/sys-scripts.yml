@@ -1,4 +1,4 @@
 type: script
 scripts:
-  - install-budgie.sh
+  - install-cinnamon.sh
   - unprotectsudo.sh
