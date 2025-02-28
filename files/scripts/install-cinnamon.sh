@@ -2,6 +2,5 @@
 
 set -oue pipefail
 
-dnf5 -y group install cinnamon-desktop
-dnf5 -y remove lightdm lightdm-gobject
-dnf5 -y install sddm
+dnf5 -y group install cinnamon-desktop base-x
+dnf5 -y install slick-greeter
