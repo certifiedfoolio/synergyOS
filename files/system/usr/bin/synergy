@@ -27,7 +27,7 @@ setup() {
     pkexec mkdir /etc/containercfg.d/$PREUSER
     pkexec echo "fedora-41" > /etc/containercfg.d/$PREUSER/default.conf
     echo "Done! Restart your shell to enjoy your container."
-    clear
+    sleep 1d
   else
     echo "Setup has already been completed!"
     echo "Use 'synergy help' for more commands."
