@@ -9,5 +9,3 @@ install:
   - apx-conf
 remove:
   - toolbox
-  - sudo
-  - sudo-python-plugin
