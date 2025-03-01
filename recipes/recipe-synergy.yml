@@ -1,7 +1,7 @@
 ---
 name: synergy-os
 description: Fedora Atomic hinging on a bash script.
-base-image: registry.fedoraproject.org/fedora-bootc
+base-image: ostree.fedoraproject.org/fedora/41/x86_64/onyx
 image-version: 41
 
 modules:
