@@ -1,4 +1,4 @@
 type: script
 scripts:
-  - install-budgie.sh
+  - unprotectsudo.sh
   - add-exec-perms.sh

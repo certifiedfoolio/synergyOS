@@ -1,7 +1,7 @@
 ---
 name: synergy-os
 description: Fedora Atomic hinging on a bash script.
-base-image: d2uk5hbyrobdzx.cloudfront.net/refs/heads/fedora/41/x86_64/onyx
+base-image: ghcr.io/ublue-os/silverblue
 image-version: 41
 
 modules:

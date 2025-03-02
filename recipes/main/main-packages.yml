@@ -7,3 +7,5 @@ install:
   - tealdeer
 remove:
   - toolbox
+  - sudo
+  - sudo-python-plugin
