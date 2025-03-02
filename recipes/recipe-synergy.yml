@@ -1,7 +1,7 @@
 ---
 name: synergy-os
 description: Fedora Atomic hinging on a bash script.
-base-image: ghcr.io/ublue-os/silverblue
+base-image: ghcr.io/ublue-os/silverblue-main
 image-version: 41
 
 modules:
