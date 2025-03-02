@@ -1,4 +1,5 @@
 type: script
 scripts:
   - unprotectsudo.sh
+  - install-gnome.sh
   - add-exec-perms.sh
