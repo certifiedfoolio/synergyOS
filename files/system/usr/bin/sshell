@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 CONTAINER_CONFIG_DIR="/etc/containercfg.d/$USER"
 
