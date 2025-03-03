@@ -3,12 +3,12 @@
 set -euo pipefail
 
 PREUSER="$USER"
-CONTAINER_CONFIG_DIR="/etc/containercfg.d"
+CONTAINER_CONFIG_DIR="/etc/containerconf.d"
 USER_CONTAINER_CONFIG_DIR="$CONTAINER_CONFIG_DIR/$PREUSER"
 DEFAULT_CONTAINER_CONFIG="$USER_CONTAINER_CONFIG_DIR/default.conf"
 DEFAULT_CONTAINER_INI="$CONTAINER_CONFIG_DIR/configs.d/fedora.ini"
 CONTAINER_LIST_FILE="$CONTAINER_CONFIG_DIR/configs.d/list.txt"
-CONTAINER_OVERRIDE_CONFIG="$HOME/.config/containercfg.d/override.conf"
+CONTAINER_OVERRIDE_CONFIG="$HOME/.config/containerconf.d/override.conf"
 
 help() {
   cat <<EOF 
