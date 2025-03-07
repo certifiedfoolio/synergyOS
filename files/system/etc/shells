@@ -9,4 +9,4 @@
 /bin/sh
 /bin/tcsh
 /bin/zsh
-/bin/sshell
+/bin/synergy-shell

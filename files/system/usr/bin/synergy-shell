@@ -3,19 +3,17 @@
 CONTAINER_CONFIG_DIR="/etc/containerconf/$USER"
 
 if [[ ! -d "$CONTAINER_CONFIG_DIR" ]]; then
-  if [[ -n "$TTY" || -n "$DISPLAY" ]]; then
+  if [ -n $PS1 ]; then
     synergy setup
   fi
-fi
-
-if [[ -n "$TTY" || -n "$DISPLAY" ]]; then
+elif [ -n $PS1 ]; then
     override_config="$HOME/.config/containerconf.d/override.conf"
     default_config="/etc/containerconf.d/$USER/default.conf"
 
     if [[ -f "$override_config" ]]; then
         if command -v distrobox-enter &> /dev/null; then
             if read -r container < "$override_config"; then
-                /usr/bin/distrobox-enter "$container" -e "ln -s /usr/bin/distrobox-host-exec /usr/bin/synergy"
+                exec /usr/bin/distrobox-enter "$container"
             else
                 echo "Could not read $override_config, moving to default" >&2
             fi
@@ -25,7 +23,7 @@ if [[ -n "$TTY" || -n "$DISPLAY" ]]; then
     elif [[ -f "$default_config" ]]; then
         if command -v distrobox-enter &> /dev/null; then
             if read -r container < "$default_config"; then
-                /usr/bin/distrobox-enter "$container" -e "ln -s /usr/bin/distrobox-host-exec /usr/bin/synergy"
+                exec /usr/bin/distrobox-enter "$container"
             else
                 echo "Error: Could not read $default_config" >&2
             fi
@@ -36,7 +34,6 @@ if [[ -n "$TTY" || -n "$DISPLAY" ]]; then
         echo "Error: Neither $override_config nor $default_config exists." >&2
     fi
 else
-    /usr/bin/bash
+    echo "Non-interactive context."
+    /bin/bash
 fi
-
-exit 0

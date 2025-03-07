@@ -28,3 +28,5 @@ You can view the syntax for these commands via `synergy help`.
 This is still in testing, mind you.
 I wouldn't recommend it as a daily driver just yet, but...
 If you want to tinker around, go right ahead :>
+
+Credits to VanillaOS for giving me this idea in the first place. :D
