@@ -1,0 +1,14 @@
+---
+name: lts
+description: CentOS bootc hinging on a bash script. KDE edition.
+base-image: quay.io/centos-bootc/centos-bootc
+image-version: 10
+
+modules:
+  - from-file: sys/main/main-scripts.yml
+  - from-file: sys/main/main-files.yml
+  - from-file: sys/main/main-services.yml
+  - from-file: sys/main/main-packages.yml
+  - from-file: sys/main/main-flatpaks.yml
+  - from-file: sys/desktops/kde.yml
+  - type: signing

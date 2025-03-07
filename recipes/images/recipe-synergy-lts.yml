@@ -1,0 +1,13 @@
+---
+name: lts-base
+description: CentOS bootc hinging on a bash script. Base edition.
+base-image: quay.io/centos-bootc/centos-bootc
+image-version: 10
+
+modules:
+  - from-file: sys/main/main-scripts.yml
+  - from-file: sys/main/main-files.yml
+  - from-file: sys/main/main-services.yml
+  - from-file: sys/main/main-packages.yml
+  - from-file: sys/main/main-flatpaks.yml
+  - type: signing

@@ -26,7 +26,12 @@ jobs:
       fail-fast: false # stop GH from cancelling all matrix builds if one fails
       matrix:
         recipe:
-          - recipe-synergy.yml
+          - recipe-synergy-lts.yml
+          - recipe-synergy-lts-gnome.yml
+          - recipe-synergy-lts-kde.yml
+          - recipe-synergy-stable.yml
+          - recipe-synergy-stable-gnome.yml
+          - recipe-synergy-stable-kde.yml
     steps:
       # the build is fully handled by the reusable github action
       - name: Build Synergy
