@@ -2,4 +2,4 @@
 
 set -ouex pipefail
 
-dnf5 -y group install gnome-desktop
+dnf -y group install gnome-desktop

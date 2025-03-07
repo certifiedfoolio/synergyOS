@@ -2,4 +2,4 @@
 
 set -oue pipefail
 
-dnf5 -y group install kde-desktop
+dnf -y group install kde-desktop

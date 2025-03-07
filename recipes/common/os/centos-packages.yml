@@ -1,3 +1,7 @@
+---
+type: script # add epel repo before isntalling pkgs
+scripts:
+  - setup-lts.sh
 type: rpm-ostree
 repos: 
   - https://copr.fedorainfracloud.org/coprs/chronos/syspkgs/repo/centos-stream-%OS_VERSION%/chronos-syspkgs-centos-stream-%OS_VERSION%.repo
