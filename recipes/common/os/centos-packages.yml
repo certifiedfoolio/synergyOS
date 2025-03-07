@@ -1,4 +1,4 @@
-type: script # add epel repo before installing pkgs
+type: script
 scripts:
   - setup-lts.sh
 type: rpm-ostree
