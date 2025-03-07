@@ -4,7 +4,6 @@ repos:
 install:
   - didyoumean
   - atuin
-  - tealdeer
   - util-linux
 remove:
   - toolbox
