@@ -2,7 +2,7 @@
 name: lts
 description: CentOS bootc hinging on a bash script. KDE edition.
 base-image: quay.io/centos-bootc/centos-bootc
-image-version: 10
+image-version: stream10
 
 modules:
   - from-file: common/main/main-scripts.yml

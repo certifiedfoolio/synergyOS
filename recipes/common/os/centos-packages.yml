@@ -5,6 +5,7 @@ install:
   - didyoumean
   - atuin
   - util-linux
+  - epel-release
 remove:
   - toolbox
   - sudo
