@@ -1,5 +1,5 @@
 ---
-name: lts
+name: lts-kde
 description: CentOS bootc hinging on a bash script. KDE edition.
 base-image: quay.io/centos-bootc/centos-bootc
 image-version: stream10

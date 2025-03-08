@@ -1,5 +1,5 @@
 ---
-name: lts
+name: lts-gnome
 description: CentOS bootc hinging on a bash script. GNOME edition.
 base-image: quay.io/centos-bootc/centos-bootc
 image-version: stream10
