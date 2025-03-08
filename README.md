@@ -5,28 +5,35 @@
 # synergyOS &nbsp; [![bluebuild build badge](https://github.com/certifiedfoolio/synergyos/actions/workflows/build.yml/badge.svg)](https://github.com/certifiedfoolio/synergyos/actions/workflows/build.yml)
 Hey there!
 synergyOS isnt really anything new - except for its shell.
-The default shell will open a distrobox, seperating you from the host.
+Just like in vOS, the default shell will open a distrobox, seperating you from the host.
+More features are to come.
 
-# How?
-On start, the shell `sshell` will detect the terminal used and go from there.
-If the conditions are correct, it will open the setup dialog in a terminal.
-The setup dialog will setup the default Fedora 41 distrobox, and when it's done, you can go from there.
-From now on, to minimize time wasted, the distrobox will be started on login.
+# Images
+We offer two types of images with three branches.
+LTS: Stable, secure, and reliable. Does not receive breaking changes to system components immediately,
+     goes through a 5-year release cycle. Based on CentOS stream10.
+______________
+Stable: A bit less stable, but still secure and reliable. May receive breaking changes to system components immediately.
+     Based on the lastest stable release of Fedora 41.
+______________
+DEV: Unstable, unreliable, and possibly insecure. This type is for the development of synergyOS.
+     Only switch to this branch if you want to contribute to the development of synergyOS, or you know what you're doing.
+     Based on Fedora 41.
 
-# How do I use `synergy`?
-`synergy` should be made available in the distrobox on startup, providing a multitude of commands.
-You can:
-  - set the default container started on login
-  - switch containers
-  - create a new container
-  - remove an existing container
-  - execute a command on the host
-  - start a shell on the host
-You can view the syntax for these commands via `synergy help`.
+Both types have three branches:
+  GNOME: Images coming with the GNOME Desktop Environment
+  KDE: Images coming with the KDE Desktop Environment
+  BASE: Base images with no desktop environment.
 
-# Does this actually work?
-This is still in testing, mind you.
-I wouldn't recommend it as a daily driver just yet, but...
-If you want to tinker around, go right ahead :>
+# How do I switch?
+Open your terminal and run the following:
+```bash
+rpm-ostree rebase ostree-unverified-registry:ghcr.io/synergy-os/<image_name>
+```
+Replace <image_name> with your image name.
+For example, if you want the LTS type and the GNOME branch, the image name would be `lts-gnome`.
 
-Credits to VanillaOS for giving me this idea in the first place. :D
+# When will I get updates?
+System updates may come regularly or every once in a while.
+Updates for synergyOS components like the `synergy` tool will move through
+the developemnt repository for testing before they reach the stable and LTS types.
